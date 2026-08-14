@@ -1083,7 +1083,14 @@ footer p {
                 📱 Place Order on WhatsApp
 
             </button>
+            <button
+    type="button"
+    class="order-btn"
+    onclick="makePayment">
 
+    💳 Pay Now
+
+</button>
         </form>
 
     </div>
@@ -1252,63 +1259,146 @@ document
 
 <script>
 
-document.getElementById("orderForm").addEventListener("submit", function(event) {
+const upiId = "9266045702@ptaxis";
+
+const sketchSelect =
+    document.getElementById("sketchName");
+
+const priceBox =
+    document.getElementById("priceBox");
+
+
+/* ================= PRICE DISPLAY ================= */
+
+sketchSelect.addEventListener("change", function() {
+
+    const selectedOption =
+        sketchSelect.options[
+            sketchSelect.selectedIndex
+        ];
+
+    const price =
+        selectedOption.getAttribute("data-price");
+
+    if (price) {
+
+        priceBox.textContent =
+            "Price: ₹" + price;
+
+    } else {
+
+        priceBox.textContent =
+            "Price: ₹0";
+
+    }
+
+});
+
+
+/* ================= WHATSAPP ORDER ================= */
+
+document
+.getElementById("orderForm")
+.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    const name = document.getElementById("customerName").value;
-    const phone = document.getElementById("customerPhone").value;
-    const sketch = document.getElementById("sketchName").value;
-    const address = document.getElementById("address").value;
-    const city = document.getElementById("city").value;
-    const pincode = document.getElementById("pincode").value;
+    const name =
+        document.getElementById("customerName").value.trim();
 
-    let price = "0";
+    const phone =
+        document.getElementById("customerPhone").value.trim();
 
-    if (sketch.includes("₹150")) {
-        price = "150";
-    } 
-    else if (sketch.includes("₹200")) {
-        price = "200";
-    } 
-    else if (sketch.includes("₹250")) {
-        price = "250";
-    }
+    const sketch =
+        document.getElementById("sketchName").value;
+
+    const selectedOption =
+        sketchSelect.options[
+            sketchSelect.selectedIndex
+        ];
+
+    const price =
+        selectedOption.getAttribute("data-price");
+
+    const address =
+        document.getElementById("address").value.trim();
+
+    const city =
+        document.getElementById("city").value.trim();
+
+    const pincode =
+        document.getElementById("pincode").value.trim();
+
 
     const message =
         "Hello, I want to place an order.\n\n" +
+
         "Name: " + name + "\n\n" +
+
         "Customer Mobile: " + phone + "\n\n" +
-        "Sketch: " + sketch.split(" - ")[0] + "\n\n" +
+
+        "Sketch: " + sketch + "\n\n" +
+
         "Price: ₹" + price + "\n\n" +
+
         "Address: " + address + "\n\n" +
+
         "City: " + city + "\n\n" +
-        "Pincode: " + pincode;
+
+        "Pincode: " + pincode + "\n\n" +
+
+        "UPI ID: " + upiId;
+
 
     const whatsappURL =
         "https://wa.me/919266045702?text=" +
         encodeURIComponent(message);
 
-    window.open(whatsappURL, "_blank");
 
-    // PAYMENT
-    const upiId = "YOUR-UPI-9266045702@ptaxis@upi";
-    const merchantName = "Nitin Sketch Studio";
-
-    const upiURL =
-        "upi://pay?pa=" +
-        encodeURIComponent(upiId) +
-        "&pn=" +
-        encodeURIComponent(merchantName) +
-        "&am=" +
-        encodeURIComponent(price) +
-        "&cu=INR";
-
-    setTimeout(function() {
-        window.location.href = upiURL;
-    }, 1500);
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
 
 });
+
+
+/* ================= PAYMENT ================= */
+
+function makePayment() {
+
+    const selectedOption =
+        sketchSelect.options[
+            sketchSelect.selectedIndex
+        ];
+
+    const price =
+        selectedOption.getAttribute("data-price");
+
+    if (!price) {
+
+        alert("Please select a sketch first.");
+
+        return;
+    }
+
+
+    const paymentURL =
+        "upi://pay?pa=" +
+        encodeURIComponent(upiId) +
+
+        "&pn=" +
+        encodeURIComponent("Nitin Sketch Studio") +
+
+        "&am=" +
+        encodeURIComponent(price) +
+
+        "&cu=INR";
+
+
+    window.location.href = paymentURL;
+
+}
 
 </script>
 
