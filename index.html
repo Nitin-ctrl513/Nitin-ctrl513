@@ -1252,73 +1252,65 @@ document
 
 <script>
 
-document
-.getElementById("orderForm")
-.addEventListener("submit", function(event) {
+document.getElementById("orderForm").addEventListener("submit", function(event) {
 
     event.preventDefault();
 
+    const name = document.getElementById("customerName").value;
+    const phone = document.getElementById("customerPhone").value;
+    const sketch = document.getElementById("sketchName").value;
+    const address = document.getElementById("address").value;
+    const city = document.getElementById("city").value;
+    const pincode = document.getElementById("pincode").value;
 
-    const name =
-        document.getElementById("customerName").value;
+    let price = "0";
 
-    const phone =
-        document.getElementById("customerPhone").value;
-
-    const sketch =
-        document.getElementById("sketchName").value;
-
-    const address =
-        document.getElementById("address").value;
-
-    const city =
-        document.getElementById("city").value;
-
-    const pincode =
-        document.getElementById("pincode").value;
-
+    if (sketch.includes("₹150")) {
+        price = "150";
+    } 
+    else if (sketch.includes("₹200")) {
+        price = "200";
+    } 
+    else if (sketch.includes("₹250")) {
+        price = "250";
+    }
 
     const message =
         "Hello, I want to place an order.\n\n" +
-
-        "Name: " +
-        name +
-        "\n\n" +
-
-        "Customer Mobile: " +
-        phone +
-        "\n\n" +
-
-        "Sketch: " +
-        sketch +
-        "\n\n" +
-
-        "Address: " +
-        address +
-        "\n\n" +
-
-        "City: " +
-        city +
-        "\n\n" +
-
-        "Pincode: " +
-        pincode;
-
+        "Name: " + name + "\n\n" +
+        "Customer Mobile: " + phone + "\n\n" +
+        "Sketch: " + sketch.split(" - ")[0] + "\n\n" +
+        "Price: ₹" + price + "\n\n" +
+        "Address: " + address + "\n\n" +
+        "City: " + city + "\n\n" +
+        "Pincode: " + pincode;
 
     const whatsappURL =
         "https://wa.me/919266045702?text=" +
         encodeURIComponent(message);
 
+    window.open(whatsappURL, "_blank");
 
-    window.open(
-        whatsappURL,
-        "_blank"
-    );
+    // PAYMENT
+    const upiId = "YOUR-UPI-ID@upi";
+    const merchantName = "Nitin Sketch Studio";
+
+    const upiURL =
+        "upi://pay?pa=" +
+        encodeURIComponent(upiId) +
+        "&pn=" +
+        encodeURIComponent(merchantName) +
+        "&am=" +
+        encodeURIComponent(price) +
+        "&cu=INR";
+
+    setTimeout(function() {
+        window.location.href = upiURL;
+    }, 1500);
 
 });
 
 </script>
-
 
 </body>
 </html>
