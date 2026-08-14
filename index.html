@@ -1,431 +1,766 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nitin Sketch Studio</title>
+<title>Nitin Sketch Studio</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
 
-        html {
-            scroll-behavior: smooth;
-        }
+/* =========================
+   GLOBAL
+========================= */
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
 
-        /* HEADER */
-        header {
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f5f1;
+    color: #222;
+    overflow-x: hidden;
+}
 
-        header h1 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
-        header p {
-            color: #ddd;
-            margin-bottom: 15px;
-        }
+.section {
+    padding: 90px 7%;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 12px;
-            font-weight: bold;
-        }
 
-        nav a:hover {
-            color: #aaa;
-        }
+/* =========================
+   HEADER
+========================= */
 
-        /* HERO */
-        .hero {
-            min-height: 480px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(135deg, #eeeeee, #ffffff);
-        }
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
-        .hero-content {
-            max-width: 750px;
-            animation: fadeUp 1s ease;
-        }
+    background: rgba(15, 15, 15, 0.94);
+    backdrop-filter: blur(12px);
 
-        .hero h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
+    color: white;
+    padding: 18px 7%;
 
-        .hero p {
-            font-size: 19px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-        .hero-btn {
-            display: inline-block;
-            background: #111;
-            color: white;
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+}
 
-        .hero-btn:hover {
-            transform: translateY(-3px);
-            background: #333;
-        }
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
-        /* SECTION */
-        .section {
-            padding: 70px 20px;
-            max-width: 1100px;
-            margin: auto;
-            text-align: center;
-        }
+.logo span {
+    color: #d6a85c;
+}
 
-        .section h2 {
-            font-size: 34px;
-            margin-bottom: 35px;
-        }
+nav {
+    display: flex;
+    gap: 28px;
+}
 
-        /* FEATURED SKETCH */
-        .gallery {
-            display: flex;
-            justify-content: center;
-        }
+nav a {
+    color: white;
+    font-size: 15px;
+    position: relative;
+    transition: 0.3s;
+}
 
-        .card {
-            width: 330px;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-            transition: 0.3s;
-            animation: fadeUp 1s ease;
-        }
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #d6a85c;
+    left: 0;
+    bottom: -7px;
+    transition: 0.3s;
+}
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.18);
-        }
+nav a:hover {
+    color: #d6a85c;
+}
 
-        .card img {
-            width: 100%;
-            height: 330px;
-            object-fit: cover;
-            display: block;
-        }
+nav a:hover::after {
+    width: 100%;
+}
 
-        .card-content {
-            padding: 22px;
-            text-align: left;
-        }
 
-        .card-content h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+/* =========================
+   HERO
+========================= */
 
-        .card-content p {
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
+.hero {
+    min-height: 88vh;
 
-        .price {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 18px;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        .buy {
-            display: block;
-            width: 100%;
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 13px;
-            border-radius: 7px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    text-align: center;
 
-        .buy:hover {
-            background: #333;
-        }
+    background:
+        radial-gradient(circle at top, rgba(214,168,92,0.18), transparent 40%),
+        linear-gradient(135deg, #111, #292929);
 
-        /* ABOUT */
-        .about {
-            background: white;
-            border-radius: 15px;
-            padding: 40px 25px;
-            line-height: 1.8;
-        }
+    color: white;
 
-        /* ORDER FORM */
-        .order-box {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            text-align: left;
-        }
+    position: relative;
+    overflow: hidden;
+}
 
-        .order-box label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 6px;
-            font-weight: bold;
-        }
+.hero::before {
+    content: "";
+    position: absolute;
 
-        .order-box input,
-        .order-box textarea,
-        .order-box select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font-size: 15px;
-        }
+    width: 500px;
+    height: 500px;
 
-        .order-box textarea {
-            resize: vertical;
-        }
+    border-radius: 50%;
 
-        .order-box button {
-            margin-top: 20px;
-        }
+    background: rgba(214,168,92,0.08);
 
-        /* CONTACT */
-        .contact {
-            line-height: 2;
-        }
+    animation: floatCircle 8s ease-in-out infinite;
+}
 
-        /* FOOTER */
-        footer {
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-            margin-top: 30px;
-        }
+.hero-content {
+    position: relative;
+    z-index: 2;
 
-        footer p {
-            color: #ccc;
-        }
+    max-width: 850px;
 
-        /* ANIMATION */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+    animation: heroAppear 1.4s ease forwards;
+}
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.hero h1 {
+    font-size: clamp(42px, 7vw, 78px);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
 
-        /* MOBILE */
-        @media (max-width: 600px) {
+.hero h1 span {
+    color: #d6a85c;
+}
 
-            header h1 {
-                font-size: 24px;
-            }
+.hero p {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #ddd;
+    max-width: 650px;
+    margin: auto;
+}
 
-            nav a {
-                margin: 0 5px;
-                font-size: 14px;
-            }
+.hero-btn {
+    display: inline-block;
 
-            .hero h2 {
-                font-size: 34px;
-            }
+    margin-top: 35px;
+    padding: 15px 32px;
 
-            .hero p {
-                font-size: 16px;
-            }
+    background: #d6a85c;
+    color: #111;
 
-            .card {
-                width: 100%;
-                max-width: 330px;
-            }
+    border-radius: 30px;
 
-            .section {
-                padding: 50px 15px;
-            }
-        }
-    </style>
+    font-weight: bold;
+
+    transition: 0.4s;
+
+    box-shadow: 0 10px 30px rgba(214,168,92,0.25);
+}
+
+.hero-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(214,168,92,0.4);
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.section-title h2 {
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: #777;
+}
+
+
+/* =========================
+   FEATURED SKETCH
+========================= */
+
+.gallery {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 360px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.5s ease,
+        box-shadow 0.5s ease;
+
+    animation: cardAppear 1s ease forwards;
+}
+
+.card:hover {
+    transform: translateY(-14px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 390px;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.7s ease;
+}
+
+.card:hover img {
+    transform: scale(1.06);
+}
+
+.card-content {
+    padding: 25px;
+    text-align: center;
+}
+
+.card-content h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    color: #777;
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+.price {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #b4873e;
+}
+
+.buy {
+    display: inline-block;
+
+    width: 100%;
+
+    padding: 14px;
+
+    background: #111;
+    color: white;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    border: none;
+    cursor: pointer;
+
+    transition: 0.35s;
+}
+
+.buy:hover {
+    background: #d6a85c;
+    color: #111;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    background: #111;
+    color: white;
+    text-align: center;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: auto;
+}
+
+.about h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.about p {
+    color: #ccc;
+    line-height: 1.9;
+    font-size: 17px;
+}
+
+
+/* =========================
+   ORDER FORM
+========================= */
+
+.order-section {
+    background: #eeeae2;
+}
+
+.order-box {
+    max-width: 700px;
+    margin: auto;
+
+    background: white;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+
+    animation: cardAppear 1s ease;
+}
+
+.order-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 34px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #d6a85c;
+
+    box-shadow: 0 0 0 3px rgba(214,168,92,0.15);
+}
+
+.order-btn {
+    width: 100%;
+
+    padding: 15px;
+
+    background: #111;
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.35s;
+}
+
+.order-btn:hover {
+    background: #d6a85c;
+    color: #111;
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.whatsapp-btn {
+    display: inline-block;
+
+    margin-top: 20px;
+
+    padding: 14px 28px;
+
+    background: #111;
+    color: white;
+
+    border-radius: 30px;
+
+    transition: 0.3s;
+}
+
+.whatsapp-btn:hover {
+    background: #d6a85c;
+    color: #111;
+
+    transform: scale(1.05);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #0c0c0c;
+    color: white;
+
+    text-align: center;
+
+    padding: 30px 20px;
+}
+
+footer h3 {
+    margin-bottom: 8px;
+}
+
+footer p {
+    color: #999;
+    font-size: 14px;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes heroAppear {
+
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardAppear {
+
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatCircle {
+
+    0%, 100% {
+        transform: translate(-20px, -20px);
+    }
+
+    50% {
+        transform: translate(20px, 20px);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        min-height: 80vh;
+        padding: 60px 20px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .section {
+        padding: 70px 5%;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .card img {
+        height: 360px;
+    }
+
+    .order-box {
+        padding: 25px 20px;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <h1>✏️ Nitin Sketch Studio</h1>
-        <p>Handmade Sketches • Original Artwork</p>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#shop">Shop</a>
-            <a href="#about">About</a>
-            <a href="#order">Order</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+<!-- =========================
+     HEADER
+========================= -->
 
+<header>
 
-    <!-- HERO -->
-    <section class="hero" id="home">
-        <div class="hero-content">
+    <div class="logo">
+        ✏️ Nitin <span>Sketch Studio</span>
+    </div>
 
-            <h2>Art Drawn By Hand</h2>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#order">Order</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
-            <p>
-                Discover beautiful handmade sketches created
-                with patience, creativity and attention to detail.
-            </p>
-
-            <a href="#shop" class="hero-btn">
-                Explore Sketch
-            </a>
-
-        </div>
-    </section>
+</header>
 
 
-    <!-- SHOP -->
-    <section class="section" id="shop">
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>
+            Art Drawn <span>By Hand</span>
+        </h1>
+
+        <p>
+            Discover original handmade sketches created
+            with patience, creativity and passion.
+            Every artwork is carefully drawn to make
+            your memories special.
+        </p>
+
+        <a href="#shop" class="hero-btn">
+            Explore Sketch
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SHOP
+========================= -->
+
+<section class="section" id="shop">
+
+    <div class="section-title">
 
         <h2>Featured Sketch</h2>
 
-        <div class="gallery">
+        <p>
+            Original handmade artwork
+        </p>
 
-            <div class="card">
+    </div>
 
-                <!-- YOUR IMAGE -->
-                <img
-                    src="WhatsApp Image 2026-08-13 at 6.49.41 PM.jpeg"
-                    alt="Portrait Sketch"
-                >
 
-                <div class="card-content">
+    <div class="gallery">
 
-                    <h3>Portrait Sketch</h3>
+        <div class="card">
 
-                    <p>
-                        Original handmade pencil sketch,
-                        carefully drawn with attention to detail.
-                    </p>
+            <img
+            src="WhatsApp Image 2026-08-13 at 6.49.41 PM.jpeg"
+            alt="Portrait Sketch">
 
-                    <div class="price">
-                        ₹150
-                    </div>
+            <div class="card-content">
 
-                    <!-- BUY NOW -->
-                    <a href="#order" class="buy">
-                        Buy Now
-                    </a>
+                <h3>
+                    Portrait Sketch
+                </h3>
 
+                <p>
+                    Original handmade pencil sketch,
+                    carefully created with attention to detail.
+                </p>
+
+                <div class="price">
+                    ₹150
                 </div>
+
+                <a href="#order" class="buy">
+                    Buy Now
+                </a>
+
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- ABOUT -->
-    <section class="section" id="about">
+<!-- =========================
+     ABOUT
+========================= -->
 
-        <h2>About The Artist</h2>
+<section class="section about" id="about">
 
-        <div class="about">
+    <div class="about-content">
 
-            <p>
-                Welcome to Nitin Sketch Studio.
-                I create handmade sketches with patience,
-                creativity and passion.
-            </p>
+        <h2>
+            About The Artist
+        </h2>
 
-            <p>
-                Every artwork is drawn by hand and made
-                to be unique.
-            </p>
+        <p>
+            Welcome to Nitin Sketch Studio.
+            I create handmade sketches with patience,
+            creativity and passion.
+            Every artwork is drawn by hand and made
+            to be unique.
+        </p>
 
-        </div>
+    </div>
 
-    </section>
+</section>
 
 
-    <!-- ORDER -->
-    <section class="section" id="order">
+<!-- =========================
+     ORDER FORM
+========================= -->
 
-        <h2>Place Your Order</h2>
+<section class="section order-section" id="order">
 
-        <div class="order-box">
+    <div class="order-box">
 
-            <form id="orderForm">
+        <h2>
+            Place Your Order
+        </h2>
 
-                <label for="customerName">
+        <form id="orderForm">
+
+            <div class="form-group">
+
+                <label>
                     Full Name
                 </label>
 
                 <input
-                    type="text"
-                    id="customerName"
-                    placeholder="Enter your name"
-                    required
-                >
+                type="text"
+                id="customerName"
+                placeholder="Enter your name"
+                required>
+
+            </div>
 
 
-                <label for="customerPhone">
+            <div class="form-group">
+
+                <label>
                     Mobile Number
                 </label>
 
                 <input
-                    type="tel"
-                    id="customerPhone"
-                    placeholder="Enter your 10-digit mobile number"
-                    pattern="[0-9]{10}"
-                    maxlength="10"
-                    required
-                >
+                type="tel"
+                id="customerPhone"
+                placeholder="Enter 10-digit mobile number"
+                pattern="[0-9]{10}"
+                maxlength="10"
+                required>
+
+            </div>
 
 
-                <label for="sketchName">
-                    Sketch
+            <div class="form-group">
+
+                <label>
+                    Select Sketch
                 </label>
 
                 <select id="sketchName" required>
@@ -440,156 +775,184 @@
 
                 </select>
 
+            </div>
 
-                <label for="address">
+
+            <div class="form-group">
+
+                <label>
                     Full Address
                 </label>
 
                 <textarea
-                    id="address"
-                    placeholder="House No / Street / Area"
-                    rows="3"
-                    required
-                ></textarea>
+                id="address"
+                rows="4"
+                placeholder="House / Street / Area"
+                required></textarea>
+
+            </div>
 
 
-                <label for="city">
+            <div class="form-group">
+
+                <label>
                     City
                 </label>
 
                 <input
-                    type="text"
-                    id="city"
-                    placeholder="Enter your city"
-                    required
-                >
+                type="text"
+                id="city"
+                placeholder="Enter your city"
+                required>
+
+            </div>
 
 
-                <label for="pincode">
+            <div class="form-group">
+
+                <label>
                     Pincode
                 </label>
 
                 <input
-                    type="text"
-                    id="pincode"
-                    placeholder="Enter 6-digit pincode"
-                    pattern="[0-9]{6}"
-                    maxlength="6"
-                    required
-                >
+                type="text"
+                id="pincode"
+                placeholder="Enter 6-digit pincode"
+                pattern="[0-9]{6}"
+                maxlength="6"
+                required>
+
+            </div>
 
 
-                <button type="submit" class="buy">
-                    Place Order on WhatsApp
-                </button>
+            <button
+            type="submit"
+            class="order-btn">
 
-            </form>
+                📱 Place Order on WhatsApp
 
-        </div>
+            </button>
 
-    </section>
+        </form>
 
+    </div>
 
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-
-        <h2>Contact</h2>
-
-        <div class="contact">
-
-            <p>
-                Want a custom sketch?
-            </p>
-
-            <p>
-                Contact us directly on WhatsApp.
-            </p>
-
-            <p>
-                📱 WhatsApp: +91 9266045702
-            </p>
-
-        </div>
-
-    </section>
+</section>
 
 
-    <!-- FOOTER -->
-    <footer>
+<!-- =========================
+     CONTACT
+========================= -->
 
-        <p>
-            © 2026 Nitin Sketch Studio
-        </p>
+<section class="section contact" id="contact">
 
-        <p>
-            Handmade with ❤️
-        </p>
+    <h2>
+        Contact
+    </h2>
 
-    </footer>
+    <p>
+        Want a custom sketch?
+    </p>
 
+    <p>
+        Contact us directly on WhatsApp.
+    </p>
 
-    <!-- WHATSAPP ORDER SCRIPT -->
-    <script>
+    <a
+    class="whatsapp-btn"
+    href="https://wa.me/919266045702"
+    target="_blank">
 
-        document
-        .getElementById("orderForm")
-        .addEventListener("submit", function(event) {
+        💬 WhatsApp Us
 
-            event.preventDefault();
+    </a>
 
-            const name =
-                document.getElementById("customerName").value;
-
-            const phone =
-                document.getElementById("customerPhone").value;
-
-            const sketch =
-                document.getElementById("sketchName").value;
-
-            const address =
-                document.getElementById("address").value;
-
-            const city =
-                document.getElementById("city").value;
-
-            const pincode =
-                document.getElementById("pincode").value;
+</section>
 
 
-            const message =
-                "Hello, I want to place an order.%0A%0A" +
-                "Name: " +
-                encodeURIComponent(name) +
-                "%0A" +
+<!-- =========================
+     FOOTER
+========================= -->
 
-                "Customer Mobile: " +
-                encodeURIComponent(phone) +
-                "%0A" +
+<footer>
 
-                "Sketch: " +
-                encodeURIComponent(sketch) +
-                "%0A" +
+    <h3>
+        ✏️ Nitin Sketch Studio
+    </h3>
 
-                "Address: " +
-                encodeURIComponent(address) +
-                "%0A" +
+    <p>
+        Handmade Sketches • Original Artwork
+    </p>
 
-                "City: " +
-                encodeURIComponent(city) +
-                "%0A" +
+    <p>
+        © 2026 Nitin Sketch Studio. All Rights Reserved.
+    </p>
 
-                "Pincode: " +
-                encodeURIComponent(pincode);
+</footer>
 
 
-            window.open(
-                "https://wa.me/919266045702?text=" + message,
-                "_blank"
-            );
+<!-- =========================
+     WHATSAPP ORDER SCRIPT
+========================= -->
 
-        });
+<script>
 
-    </script>
+document
+.getElementById("orderForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const name =
+    document.getElementById("customerName").value;
+
+    const phone =
+    document.getElementById("customerPhone").value;
+
+    const sketch =
+    document.getElementById("sketchName").value;
+
+    const address =
+    document.getElementById("address").value;
+
+    const city =
+    document.getElementById("city").value;
+
+    const pincode =
+    document.getElementById("pincode").value;
+
+
+    const message =
+`Hello, I want to place an order.
+
+Name: ${name}
+
+Customer Mobile: ${phone}
+
+Sketch: ${sketch}
+
+Address: ${address}
+
+City: ${city}
+
+Pincode: ${pincode}`;
+
+
+    const whatsappURL =
+    "https://wa.me/919266045702?text="
+    + encodeURIComponent(message);
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+});
+
+</script>
+
 
 </body>
 </html>
