@@ -1,573 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nitin Sketch Studio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+    <title>Nitin Sketch Studio</title>
 
-    body {
-      background: #f7f4ef;
-      color: #222;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    header {
-      background: #171717;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    header h1 {
-      font-size: 28px;
-      letter-spacing: 1px;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
 
-    header p {
-      margin-top: 6px;
-      color: #ccc;
-    }
+        /* HEADER */
+        header {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-    nav {
-      margin-top: 15px;
-    }
+        header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-      font-size: 14px;
-    }
+        header p {
+            color: #ddd;
+            margin-bottom: 15px;
+        }
 
-    .hero {
-      text-align: center;
-      padding: 70px 20px;
-      background: white;
-    }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+        }
 
-    .hero h2 {
-      font-size: 40px;
-      margin-bottom: 15px;
-    }
+        nav a:hover {
+            color: #aaa;
+        }
 
-    .hero p {
-      max-width: 600px;
-      margin: auto;
-      line-height: 1.6;
-      color: #555;
-    }
+        /* HERO */
+        .hero {
+            min-height: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #eeeeee, #ffffff);
+        }
 
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 13px 25px;
-      background: #171717;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-    }
+        .hero-content {
+            max-width: 750px;
+            animation: fadeUp 1s ease;
+        }
 
-    .section {
-      padding: 50px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
 
-    .section h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 30px;
-    }
+        .hero p {
+            font-size: 19px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 25px;
-    }
+        .hero-btn {
+            display: inline-block;
+            background: #111;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
 
-    .card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    }
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            background: #333;
+        }
 
-    .card img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      background: #ddd;
-    }
+        /* SECTION */
+        .section {
+            padding: 70px 20px;
+            max-width: 1100px;
+            margin: auto;
+            text-align: center;
+        }
 
-    .card-content {
-      padding: 18px;
-    }
+        .section h2 {
+            font-size: 34px;
+            margin-bottom: 35px;
+        }
 
-    .card h3 {
-      margin-bottom: 8px;
-    }
+        /* FEATURED SKETCH */
+        .gallery {
+            display: flex;
+            justify-content: center;
+        }
 
-    .price {
-      font-weight: bold;
-      font-size: 20px;
-      margin: 10px 0;
-    }
+        .card {
+            width: 330px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: 0.3s;
+            animation: fadeUp 1s ease;
+        }
 
-    .buy {
-      display: block;
-      text-align: center;
-      background: #171717;
-      color: white;
-      padding: 11px;
-      border-radius: 5px;
-      text-decoration: none;
-    }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.18);
+        }
 
-    .about {
-      background: white;
-      text-align: center;
-      padding: 45px 20px;
-    }
+        .card img {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;
+            display: block;
+        }
 
-    .about p {
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.7;
-      color: #555;
-    }
+        .card-content {
+            padding: 22px;
+            text-align: left;
+        }
 
-    footer {
-      background: #171717;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      margin-top: 30px;
-    }
-  </style>
-  <style>
+        .card-content h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
 
-/* ===== PREMIUM SKETCH WEBSITE DESIGN ===== */
+        .card-content p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
 
-* {
-    box-sizing: border-box;
-}
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
 
-html {
-    scroll-behavior: smooth;
-}
+        .buy {
+            display: block;
+            width: 100%;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 13px;
+            border-radius: 7px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
 
-body {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    background: #f7f2e8;
-    color: #252525;
-    line-height: 1.6;
-}
+        .buy:hover {
+            background: #333;
+        }
 
-/* Headings */
-h1, h2, h3 {
-    font-family: Georgia, "Times New Roman", serif;
-    letter-spacing: 0.5px;
-}
+        /* ABOUT */
+        .about {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 25px;
+            line-height: 1.8;
+        }
 
-h2 {
-    text-align: center;
-    font-size: 34px;
-    margin: 20px 0 35px;
-}
+        /* ORDER FORM */
+        .order-box {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: left;
+        }
 
-/* Main sections */
-.section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 70px 25px;
-}
+        .order-box label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
 
-/* Sketch Gallery */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-}
+        .order-box input,
+        .order-box textarea,
+        .order-box select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
 
-/* Sketch Card */
-.card {
-    background: #fffdf8;
-    border-radius: 18px;
-    overflow: hidden;
-    border: 1px solid #ded5c5;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        .order-box textarea {
+            resize: vertical;
+        }
 
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-}
+        .order-box button {
+            margin-top: 20px;
+        }
 
-/* Sketch Image */
-.card img {
-    width: 100%;
-    height: 330px;
-    object-fit: cover;
-    display: block;
-    background: #eee8dc;
-}
+        /* CONTACT */
+        .contact {
+            line-height: 2;
+        }
 
-/* Card Content */
-.card-content {
-    padding: 22px;
-    text-align: center;
-}
+        /* FOOTER */
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 30px;
+        }
 
-.card-content h3 {
-    font-size: 23px;
-    margin: 5px 0 10px;
-}
+        footer p {
+            color: #ccc;
+        }
 
-.card-content p {
-    color: #666;
-    margin: 8px 0 15px;
-}
+        /* ANIMATION */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
 
-/* Price */
-.price {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 15px 0;
-    color: #1f1f1f;
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-/* Buttons */
-.buy {
-    display: inline-block;
-    background: #222;
-    color: white !important;
-    text-decoration: none;
-    border: none;
-    border-radius: 30px;
-    padding: 12px 28px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+        /* MOBILE */
+        @media (max-width: 600px) {
 
-.buy:hover {
-    background: #555;
-    transform: scale(1.04);
-}
+            header h1 {
+                font-size: 24px;
+            }
 
-/* Order Form */
-#order {
-    max-width: 750px;
-}
+            nav a {
+                margin: 0 5px;
+                font-size: 14px;
+            }
 
-#orderForm {
-    background: #fffdf8;
-    padding: 35px;
-    border-radius: 20px;
-    border: 1px solid #ded5c5;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-}
+            .hero h2 {
+                font-size: 34px;
+            }
 
-#orderForm label {
-    display: block;
-    font-weight: bold;
-    margin: 18px 0 7px;
-}
+            .hero p {
+                font-size: 16px;
+            }
 
-#orderForm input,
-#orderForm select,
-#orderForm textarea {
-    width: 100%;
-    padding: 13px 15px;
-    border: 1px solid #cfc5b5;
-    border-radius: 10px;
-    background: white;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    outline: none;
-}
+            .card {
+                width: 100%;
+                max-width: 330px;
+            }
 
-#orderForm input:focus,
-#orderForm select:focus,
-#orderForm textarea:focus {
-    border-color: #555;
-    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
-}
-
-#orderForm textarea {
-    resize: vertical;
-}
-
-#orderForm .buy {
-    width: 100%;
-    margin-top: 25px;
-}
-
-/* Images look like artwork */
-.card img {
-    filter: contrast(1.02);
-}
-
-/* Mobile Design */
-@media (max-width: 600px) {
-
-    .section {
-        padding: 45px 16px;
-    }
-
-    h2 {
-        font-size: 28px;
-    }
-
-    .gallery {
-        grid-template-columns: 1fr;
-        gap: 22px;
-    }
-
-    .card img {
-        height: 360px;
-    }
-
-    #orderForm {
-        padding: 22px;
-    }
-
-    .buy {
-        width: 100%;
-    }
-}
-
-</style>
+            .section {
+                padding: 50px 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-  <h1>✏️ Nitin Sketch Studio</h1>
-  <p>Handmade Sketches • Original Artwork</p>
+    <!-- HEADER -->
+    <header>
+        <h1>✏️ Nitin Sketch Studio</h1>
+        <p>Handmade Sketches • Original Artwork</p>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#shop">Shop</a>
+            <a href="#about">About</a>
+            <a href="#order">Order</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-<section class="hero" id="home">
-  <h2>Art Drawn By Hand</h2>
 
-  <p>
-    Discover original handwritten and hand-drawn sketches
-    created with passion and attention to detail.
-  </p>
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
 
-  <a href="#shop" class="btn">Explore Sketches</a>
-</section>
+            <h2>Art Drawn By Hand</h2>
 
-<section class="section" id="shop">
+            <p>
+                Discover beautiful handmade sketches created
+                with patience, creativity and attention to detail.
+            </p>
 
-  <section class="section" id="shop">
-
-    <h2>Featured Sketches</h2>
-
-   <div class="gallery">
-
-    <!-- Portrait Sketch -->
-    <div class="card">
-        <img src="WhatsApp Image 2026-08-13 at 6.49.41 PM.jpeg"
-             alt="Portrait Sketch">
-
-        <div class="card-content">
-            <h3>Portrait Sketch</h3>
-            <p>Original handmade pencil sketch.</p>
-
-            <div class="price">₹150</div>
-
-            <a class="buy" href="#order">
-                Buy Now
+            <a href="#shop" class="hero-btn">
+                Explore Sketch
             </a>
+
         </div>
-    </div>
+    </section>
 
 
-    <!-- Custom Sketch -->
-    <div class="card">
-        <img src="WhatsApp Image 2026-08-13 at 6.49.40 PM.jpeg"
-             alt="Custom Sketch">
+    <!-- SHOP -->
+    <section class="section" id="shop">
 
-        <div class="card-content">
-            <h3>Custom Sketch</h3>
-            <p>Beautiful handmade artwork.</p>
+        <h2>Featured Sketch</h2>
 
-            <div class="price">₹250</div>
+        <div class="gallery">
 
-            <a class="buy" href="#order">
-                Buy Now
-            </a>
+            <div class="card">
+
+                <!-- YOUR IMAGE -->
+                <img
+                    src="WhatsApp Image 2026-08-13 at 6.49.41 PM.jpeg"
+                    alt="Portrait Sketch"
+                >
+
+                <div class="card-content">
+
+                    <h3>Portrait Sketch</h3>
+
+                    <p>
+                        Original handmade pencil sketch,
+                        carefully drawn with attention to detail.
+                    </p>
+
+                    <div class="price">
+                        ₹150
+                    </div>
+
+                    <!-- BUY NOW -->
+                    <a href="#order" class="buy">
+                        Buy Now
+                    </a>
+
+                </div>
+            </div>
+
         </div>
-    </div>
+
+    </section>
 
 
-    <!-- Handmade Sketch -->
-    <div class="card">
-        <img src="WhatsApp Image 2026-08-13 at 6.49.40 PM (1).jpeg"
-             alt="Handmade Sketch">
+    <!-- ABOUT -->
+    <section class="section" id="about">
 
-        <div class="card-content">
-            <h3>Handmade Sketch</h3>
-            <p>Beautiful original handmade artwork.</p>
+        <h2>About The Artist</h2>
 
-            <div class="price">₹200</div>
+        <div class="about">
 
-            <a class="buy" href="#order">
-                Buy Now
-            </a>
+            <p>
+                Welcome to Nitin Sketch Studio.
+                I create handmade sketches with patience,
+                creativity and passion.
+            </p>
+
+            <p>
+                Every artwork is drawn by hand and made
+                to be unique.
+            </p>
+
         </div>
-    </div>
 
-</div>
+    </section>
 
 
-        
-  <!-- Order Form -->
-<section class="section" id="order">
+    <!-- ORDER -->
+    <section class="section" id="order">
 
-    <h2>Place Your Order</h2>
+        <h2>Place Your Order</h2>
 
-    <form id="orderForm" class="order-form">
+        <div class="order-box">
 
-        <label for="customerName">Full Name</label>
-        <input
-            type="text"
-            id="customerName"
-            placeholder="Enter your name"
-            required
-        >
+            <form id="orderForm">
 
-        <label for="customerPhone">Mobile Number</label>
-        <input
-            type="tel"
-            id="customerPhone"
-            placeholder="Enter your mobile number"
-            pattern="[0-9]{10}"
-            maxlength="10"
-            required
-        >
+                <label for="customerName">
+                    Full Name
+                </label>
 
-        <label for="sketchName">Select Sketch</label>
-        <select id="sketchName" required>
-            <option value="">Select a sketch</option>
-            <option value="Portrait Sketch - ₹150">Portrait Sketch - ₹150</option>
-            <option value="Custom Sketch - ₹250">Custom Sketch - ₹250</option>
-            <option value="Handmade Sketch - ₹200">Handmade Sketch - ₹200</option>
-        </select>
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter your name"
+                    required
+                >
 
-        <label for="address">Full Address</label>
-        <textarea
-            id="address"
-            placeholder="House / Street / Area"
-            rows="3"
-            required
-        ></textarea>
 
-        <label for="city">City</label>
-        <input
-            type="text"
-            id="city"
-            placeholder="Enter your city"
-            required
-        >
+                <label for="customerPhone">
+                    Mobile Number
+                </label>
 
-        <label for="pincode">Pincode</label>
-        <input
-            type="text"
-            id="pincode"
-            placeholder="Enter 6-digit pincode"
-            pattern="[0-9]{6}"
-            maxlength="6"
-            required
-        >
+                <input
+                    type="tel"
+                    id="customerPhone"
+                    placeholder="Enter your 10-digit mobile number"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                >
 
-        <button type="submit" class="buy">
-            Place Order on WhatsApp
-        </button>
 
-    </form>
+                <label for="sketchName">
+                    Sketch
+                </label>
 
-</section>
+                <select id="sketchName" required>
 
-<script>
-document.getElementById("orderForm").addEventListener("submit", function(event) {
+                    <option value="">
+                        Select a sketch
+                    </option>
 
-    event.preventDefault();
+                    <option value="Portrait Sketch - ₹150">
+                        Portrait Sketch - ₹150
+                    </option>
 
-    const name = document.getElementById("customerName").value;
-    const phone = document.getElementById("customerPhone").value;
-    const sketch = document.getElementById("sketchName").value;
-    const address = document.getElementById("address").value;
-    const city = document.getElementById("city").value;
-    const pincode = document.getElementById("pincode").value;
+                </select>
 
-    const message =
-        "Hello, I want to place an order.%0A%0A" +
-        "Name: " + encodeURIComponent(name) + "%0A" +
-        "Customer Mobile: " + encodeURIComponent(phone) + "%0A" +
-        "Sketch: " + encodeURIComponent(sketch) + "%0A" +
-        "Address: " + encodeURIComponent(address) + "%0A" +
-        "City: " + encodeURIComponent(city) + "%0A" +
-        "Pincode: " + encodeURIComponent(pincode);
 
-    window.open(
-        "https://wa.me/919266045702?text=" + message,
-        "_blank"
-    );
+                <label for="address">
+                    Full Address
+                </label>
 
-});
-</script>
-<section class="about" id="about">
+                <textarea
+                    id="address"
+                    placeholder="House No / Street / Area"
+                    rows="3"
+                    required
+                ></textarea>
 
-  <h2>About The Artist</h2>
 
-  <p>
-    Welcome to Nitin Sketch Studio. I create handmade sketches
-    with patience, creativity and passion. Every artwork is
-    drawn by hand and made to be unique.
-  </p>
+                <label for="city">
+                    City
+                </label>
 
-</section>
+                <input
+                    type="text"
+                    id="city"
+                    placeholder="Enter your city"
+                    required
+                >
 
-<section class="section" id="contact">
 
-  <h2>Contact</h2>
+                <label for="pincode">
+                    Pincode
+                </label>
 
-  <p style="text-align:center;">
-    Want a custom sketch? Contact me on WhatsApp.
-  </p>
+                <input
+                    type="text"
+                    id="pincode"
+                    placeholder="Enter 6-digit pincode"
+                    pattern="[0-9]{6}"
+                    maxlength="6"
+                    required
+                >
 
-  <div style="text-align:center;">
-    <a class="btn"
-       href="https://wa.me/919266045702"
-       target="_blank">
-       WhatsApp Me
-    </a>
-  </div>
 
-</section>
+                <button type="submit" class="buy">
+                    Place Order on WhatsApp
+                </button>
 
-<footer>
-  <p>© 2026 Nitin Sketch Studio. All Rights Reserved.</p>
-</footer>
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+
+        <h2>Contact</h2>
+
+        <div class="contact">
+
+            <p>
+                Want a custom sketch?
+            </p>
+
+            <p>
+                Contact us directly on WhatsApp.
+            </p>
+
+            <p>
+                📱 WhatsApp: +91 9266045702
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            © 2026 Nitin Sketch Studio
+        </p>
+
+        <p>
+            Handmade with ❤️
+        </p>
+
+    </footer>
+
+
+    <!-- WHATSAPP ORDER SCRIPT -->
+    <script>
+
+        document
+        .getElementById("orderForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById("customerName").value;
+
+            const phone =
+                document.getElementById("customerPhone").value;
+
+            const sketch =
+                document.getElementById("sketchName").value;
+
+            const address =
+                document.getElementById("address").value;
+
+            const city =
+                document.getElementById("city").value;
+
+            const pincode =
+                document.getElementById("pincode").value;
+
+
+            const message =
+                "Hello, I want to place an order.%0A%0A" +
+                "Name: " +
+                encodeURIComponent(name) +
+                "%0A" +
+
+                "Customer Mobile: " +
+                encodeURIComponent(phone) +
+                "%0A" +
+
+                "Sketch: " +
+                encodeURIComponent(sketch) +
+                "%0A" +
+
+                "Address: " +
+                encodeURIComponent(address) +
+                "%0A" +
+
+                "City: " +
+                encodeURIComponent(city) +
+                "%0A" +
+
+                "Pincode: " +
+                encodeURIComponent(pincode);
+
+
+            window.open(
+                "https://wa.me/919266045702?text=" + message,
+                "_blank"
+            );
+
+        });
+
+    </script>
 
 </body>
 </html>
