@@ -1134,73 +1134,81 @@ sketchSelect.addEventListener("change", function() {
     }
 
 });
+<script>
 
+const upiId = "9266045702@ptaxis";
+const shopName = "Nitin Sketch Studio";
 
-/* WhatsApp Order */
+/* ================= WHATSAPP ORDER ================= */
 
-document
-.getElementById("orderForm")
-.addEventListener("submit", function(event) {
+document.getElementById("orderForm").addEventListener("submit", function(event) {
 
     event.preventDefault();
 
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const sketch = document.getElementById("sketchName").value;
+    const address = document.getElementById("address").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const pincode = document.getElementById("pincode").value.trim();
 
-    const name =
-        document.getElementById("customerName").value.trim();
-
-    const phone =
-        document.getElementById("customerPhone").value.trim();
-
-    const sketch =
-        document.getElementById("sketchName").value;
-
-    const selectedOption =
-        sketchSelect.options[
-            sketchSelect.selectedIndex
-        ];
-
-    const price =
-        selectedOption.getAttribute("data-price");
-
-    const address =
-        document.getElementById("address").value.trim();
-
-    const city =
-        document.getElementById("city").value.trim();
-
-    const pincode =
-        document.getElementById("pincode").value.trim();
-
+    const priceMatch = sketch.match(/₹(\d+)/);
+    const price = priceMatch ? priceMatch[1] : "0";
 
     const message =
         "Hello, I want to place an order.\n\n" +
-
         "Name: " + name + "\n\n" +
-
         "Customer Mobile: " + phone + "\n\n" +
-
-        "Sketch: " + sketch + "\n\n" +
-
+        "Sketch: " + sketch.split(" - ")[0] + "\n\n" +
         "Price: ₹" + price + "\n\n" +
-
         "Address: " + address + "\n\n" +
-
         "City: " + city + "\n\n" +
-
         "Pincode: " + pincode + "\n\n" +
-
         "Please share the payment details.";
-
 
     const whatsappURL =
         "https://wa.me/919266045702?text=" +
         encodeURIComponent(message);
 
+    window.open(whatsappURL, "_blank");
 
-    window.open(
-        whatsappURL,
-        "_blank"
-    );
+});
+
+
+/* ================= UPI PAYMENT ================= */
+
+function makePayment() {
+
+    const sketch = document.getElementById("sketchName").value;
+
+    if (!sketch) {
+        alert("Please select a sketch first.");
+        return;
+    }
+
+    const priceMatch = sketch.match(/₹(\d+)/);
+
+    if (!priceMatch) {
+        alert("Price not found.");
+        return;
+    }
+
+    const amount = priceMatch[1];
+
+    const upiURL =
+        "upi://pay" +
+        "?pa=" + encodeURIComponent(upiId) +
+        "&pn=" + encodeURIComponent(shopName) +
+        "&am=" + encodeURIComponent(amount) +
+        "&cu=INR" +
+        "&tn=" + encodeURIComponent("Sketch Order");
+
+    window.location.href = upiURL;
+}
+
+</script>
+
+
 
 });
 
