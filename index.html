@@ -1094,7 +1094,9 @@ footer p {
                 💳 Pay Now
                   
             </button>
-              <div id="paymentBox" style="display:none; text-align:center; margin-top:20px;">
+              <div id="paymentBox" style="display:none; text-align:center; margin-top:20px; padding:25px;
+    background:white;
+    border-radius:15px;">
 
     <h3>Scan & Pay</h3>
 
@@ -1102,13 +1104,15 @@ footer p {
         src="WhatsApp Image 2026-08-15 at 11.47.17 AM.jpeg"
         alt="Paytm UPI QR Code"
         style="
+            display:block;
             width:220px;
-            max-width:80%;
+            height:220px;
+            object-fit:contain;
             margin:20px auto;
-            border-radius:10px;
         ">
 
-    <p id="paymentAmount">
+    <p id="paymentAmount"
+       style="font-size:22px;font-weight:bold;">
         Amount: ₹0
     </p>
 
@@ -1314,44 +1318,21 @@ document
 
 /* ================= PAYMENT ================= */
 
-function makePayment() {
+function showPaymentQR() {
 
-    const price =
-        getPrice();
-
+    const price = getPrice();
 
     if (price === "0") {
-
         alert("Please select a sketch first.");
-
         return;
-
     }
-alert("Pay Now clicked. Amount: ₹" + price);
 
-    const paymentURL =
-        "upi://pay" +
+    document.getElementById("paymentAmount").textContent =
+        "Amount: ₹" + price;
 
-        "?pa=" +
-        encodeURIComponent(upiId) +
-
-        "&pn=" +
-        encodeURIComponent(shopName) +
-
-        "&am=" +
-        encodeURIComponent(price) +
-
-        "&cu=INR" +
-
-        "&tn=" +
-        encodeURIComponent("Sketch Order");
-
-
-    window.location.href =
-        paymentURL;
-
+    document.getElementById("paymentBox").style.display =
+        "block";
 }
-
 </script>
 
 </body>
