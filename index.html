@@ -988,46 +988,7 @@ footer p {
                     Select Sketch
                 </label>
 
-                <select id="sketchName" required>
-
-                    <option value="">
-                        Select a sketch
-                    </option>
-
-                    <option value="Portrait Sketch" data-price="150">
-                        Portrait Sketch - ₹150
-                    </option>
-
-                    <option value="Custom Sketch" data-price="250">
-                        Custom Sketch - ₹250
-                    </option>
-
-                    <option value="Handmade Sketch" data-price="200">
-                        Handmade Sketch - ₹200
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- AUTOMATIC PRICE -->
-
-            <div id="priceBox"
-                 style="
-                 margin:15px 0;
-                 padding:15px;
-                 background:#f5f5f5;
-                 border-radius:10px;
-                 text-align:center;
-                 font-size:20px;
-                 font-weight:bold;
-                 ">
-
-                Price: ₹0
-
-            </div>
-
+               
 
             <div class="form-group">
 
@@ -1207,7 +1168,16 @@ function makePayment() {
 }
 
 </script>
+document.getElementById("sketchName").addEventListener("change", function () {
 
+    const selectedOption = this.options[this.selectedIndex];
+
+    const price = selectedOption.getAttribute("data-price") || 0;
+
+    document.getElementById("priceDisplay").textContent =
+        "Price: ₹" + price;
+
+});
 
 
 });
