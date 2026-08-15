@@ -1088,13 +1088,31 @@ footer p {
             <button
                 type="button"
                 class="order-btn"
-                onclick="makePayment()"
+                onclick="showpaymentQR()"
                 style="margin-top:12px;">
 
                 💳 Pay Now
-
+                  
             </button>
+              <div id="paymentBox" style="display:none; text-align:center; margin-top:20px;">
 
+    <h3>Scan & Pay</h3>
+
+    <img
+        src="WhatsApp Image 2026-08-15 at 11.47.17 AM.jpeg"
+        alt="Paytm UPI QR Code"
+        style="
+            width:220px;
+            max-width:80%;
+            margin:20px auto;
+            border-radius:10px;
+        ">
+
+    <p id="paymentAmount">
+        Amount: ₹0
+    </p>
+
+</div>
         </form>
 
     </div>
