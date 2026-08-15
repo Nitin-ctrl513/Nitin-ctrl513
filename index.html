@@ -1256,126 +1256,93 @@ document
 
 
 <!-- ================= WHATSAPP SCRIPT ================= -->
-
 <script>
 
 const upiId = "9266045702@ptaxis";
 
-const sketchSelect =
-    document.getElementById("sketchName");
-
-const priceBox =
-    document.getElementById("priceBox");
-
-
-/* ================= PRICE DISPLAY ================= */
-
-sketchSelect.addEventListener("change", function() {
-
-    const selectedOption =
-        sketchSelect.options[
-            sketchSelect.selectedIndex
-        ];
-
-    const price =
-        selectedOption.getAttribute("data-price");
-
-    if (price) {
-
-        priceBox.textContent =
-            "Price: ₹" + price;
-
-    } else {
-
-        priceBox.textContent =
-            "Price: ₹0";
-
-    }
-
-});
-
-
-/* ================= WHATSAPP ORDER ================= */
-
-document
-.getElementById("orderForm")
-.addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    const name =
-        document.getElementById("customerName").value.trim();
-
-    const phone =
-        document.getElementById("customerPhone").value.trim();
+function getPrice() {
 
     const sketch =
         document.getElementById("sketchName").value;
 
-    const selectedOption =
-        sketchSelect.options[
-            sketchSelect.selectedIndex
-        ];
+    if (sketch.includes("₹150")) return 150;
+    if (sketch.includes("₹200")) return 200;
+    if (sketch.includes("₹250")) return 250;
 
-    const price =
-        selectedOption.getAttribute("data-price");
-
-    const address =
-        document.getElementById("address").value.trim();
-
-    const city =
-        document.getElementById("city").value.trim();
-
-    const pincode =
-        document.getElementById("pincode").value.trim();
+    return 0;
+}
 
 
-    const message =
-        "Hello, I want to place an order.\n\n" +
+/* ================= WHATSAPP ORDER ================= */
 
-        "Name: " + name + "\n\n" +
+document.getElementById("orderForm").addEventListener(
+    "submit",
+    function(event) {
 
-        "Customer Mobile: " + phone + "\n\n" +
+        event.preventDefault();
 
-        "Sketch: " + sketch + "\n\n" +
+        const name =
+            document.getElementById("customerName").value.trim();
 
-        "Price: ₹" + price + "\n\n" +
+        const phone =
+            document.getElementById("customerPhone").value.trim();
 
-        "Address: " + address + "\n\n" +
+        const sketch =
+            document.getElementById("sketchName").value;
 
-        "City: " + city + "\n\n" +
+        const address =
+            document.getElementById("address").value.trim();
 
-        "Pincode: " + pincode + "\n\n" +
+        const city =
+            document.getElementById("city").value.trim();
 
-        "UPI ID: " + upiId;
+        const pincode =
+            document.getElementById("pincode").value.trim();
+
+        const price = getPrice();
+
+        if (price === 0) {
+            alert("Please select a sketch first.");
+            return;
+        }
+
+        const message =
+            "Hello, I want to place an order.\n\n" +
+
+            "Name: " + name + "\n\n" +
+
+            "Customer Mobile: " + phone + "\n\n" +
+
+            "Sketch: " + sketch.split(" - ₹")[0] + "\n\n" +
+
+            "Price: ₹" + price + "\n\n" +
+
+            "Address: " + address + "\n\n" +
+
+            "City: " + city + "\n\n" +
+
+            "Pincode: " + pincode + "\n\n" +
+
+            "UPI ID: " + upiId;
 
 
-    const whatsappURL =
-        "https://wa.me/919266045702?text=" +
-        encodeURIComponent(message);
+        const whatsappURL =
+            "https://wa.me/919266045702?text=" +
+            encodeURIComponent(message);
+
+        window.open(whatsappURL, "_blank");
+
+    }
+);
 
 
-    window.open(
-        whatsappURL,
-        "_blank"
-    );
-
-});
-
-
-/* ================= PAYMENT ================= */
+/* ================= PAY NOW ================= */
 
 function makePayment() {
 
-    const selectedOption =
-        sketchSelect.options[
-            sketchSelect.selectedIndex
-        ];
+    const price = getPrice();
 
-    const price =
-        selectedOption.getAttribute("data-price");
-
-    if (!price) {
+    if (price === 0) {
 
         alert("Please select a sketch first.");
 
@@ -1384,15 +1351,10 @@ function makePayment() {
 
 
     const paymentURL =
-        "upi://pay?pa=" +
-        encodeURIComponent(upiId) +
-
-        "&pn=" +
-        encodeURIComponent("Nitin Sketch Studio") +
-
-        "&am=" +
-        encodeURIComponent(price) +
-
+        "upi://pay" +
+        "?pa=" + encodeURIComponent(upiId) +
+        "&pn=" + encodeURIComponent("Nitin Sketch Studio") +
+        "&am=" + encodeURIComponent(price) +
         "&cu=INR";
 
 
